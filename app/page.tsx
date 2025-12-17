@@ -21,6 +21,7 @@ export default function HomePage() {
 
   return (
     <section className="relative overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 -z-10">
         <Image
           src="/images/bg.png"
@@ -29,63 +30,67 @@ export default function HomePage() {
           priority
           className="object-cover object-top"
         />
-        <div className="absolute inset-0 bg-black/55" />
+
+        {/* Make mountains more visible: softer overlay + bottom gradient */}
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/45" />
       </div>
 
       <Container className="py-10 sm:py-14">
-        {/* BIG convention “billboard” */}
-        <div className="rounded-3xl bg-white/10 p-6 backdrop-blur sm:p-10">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white">
-              Yearly Convention • {CONVENTION.anniversary}
-            </span>
-            <span className="text-sm text-white/85">{CONVENTION.dates}</span>
-            <span className="text-white/30">•</span>
-            <span className="text-sm text-white/85">{CONVENTION.city}</span>
-          </div>
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+          {/* LEFT PANEL: Convention highlight */}
+          <div className="rounded-3xl bg-white/10 p-6 backdrop-blur-md sm:p-10">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white">
+                Yearly Convention • {CONVENTION.anniversary}
+              </span>
+              <span className="text-sm text-white/90">{CONVENTION.dates}</span>
+            </div>
 
-          <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
-            {CONVENTION.name}
-          </h1>
+            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              {CONVENTION.name}
+            </h1>
 
-          <p className="mt-4 max-w-3xl text-lg text-white/85">
-            New location: <span className="font-medium text-white">{CONVENTION.venue}</span>. Workshops, social dancing,
-            and community — all weekend.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button href="/or-bust">See convention details</Button>
-            <Button href="/or-bust/register" variant="secondary">
-              Register now
-            </Button>
-          </div>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            <InfoCard label="Venue" value={`${CONVENTION.venue}`} sub={`${CONVENTION.address}`} />
-            <InfoCard label="Hotel direct" value={CONVENTION.phone} sub="Call for general hotel questions" />
-            <InfoCard label="Weekend pricing" value={`${CONVENTION.priceEarly} / ${CONVENTION.priceLate}`} sub="Single-day passes available" />
-          </div>
-        </div>
-
-        {/* Split panel: taglines + upcoming events */}
-        <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-stretch">
-          <div className="rounded-3xl bg-white/10 p-6 backdrop-blur sm:p-8">
-            <p className="text-white/90">Dancin’ with Altitude… It’s just what we do!</p>
-            <h2 className="mt-3 text-2xl font-semibold text-white">Weekly dancing</h2>
-            <p className="mt-3 text-white/85">
-              New dancers welcome. Come learn the basics and get moving with a friendly group.
+            <p className="mt-4 text-lg text-white/85">
+              {CONVENTION.city} • New location:{" "}
+              <span className="font-medium text-white">{CONVENTION.venue}</span>
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="/schedule" variant="secondary">View schedule</Button>
-              <Button href="/contact" variant="secondary">Ask a question</Button>
+
+            <div className="mt-5 space-y-2 text-sm text-white/85">
+              <p>
+                <span className="font-medium text-white">Address:</span> {CONVENTION.address}
+              </p>
+              <p>
+                <span className="font-medium text-white">Hotel Direct:</span> {CONVENTION.phone}
+              </p>
+              <p>
+                <span className="font-medium text-white">Weekend pricing:</span>{" "}
+                {CONVENTION.priceEarly} / {CONVENTION.priceLate}
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/or-bust">Convention details</Button>
+              <Button href="/or-bust/register" variant="secondary">
+                Register now
+              </Button>
+            </div>
+
+            <div className="mt-8 rounded-2xl bg-white/10 p-4">
+              <p className="text-white/90">
+                Dancin’ with Altitude… It’s just what we do!
+              </p>
             </div>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
+          {/* RIGHT PANEL: Upcoming events */}
+          <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-10">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-xl font-semibold">Upcoming events</h3>
-                <p className="mt-1 text-sm text-neutral-600">What’s happening next</p>
+                <h2 className="text-xl font-semibold">Upcoming events</h2>
+                <p className="mt-1 text-sm text-neutral-600">
+                  What’s happening next
+                </p>
               </div>
               <Link
                 href="/events"
@@ -97,28 +102,38 @@ export default function HomePage() {
 
             <div className="mt-6 space-y-3">
               {upcoming.map((e) => (
-                <div key={e.id} className="rounded-2xl border border-neutral-200 p-4 hover:border-neutral-300">
+                <div
+                  key={e.id}
+                  className="rounded-2xl border border-neutral-200 p-4 hover:border-neutral-300"
+                >
                   <div className="flex items-baseline justify-between gap-3">
                     <p className="font-medium">{e.title}</p>
-                    <p className="whitespace-nowrap text-xs text-neutral-500">{e.date}</p>
+                    <p className="whitespace-nowrap text-xs text-neutral-500">
+                      {e.date}
+                    </p>
                   </div>
                   <p className="mt-1 text-sm text-neutral-700">{e.location}</p>
                 </div>
               ))}
             </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <Link
+                href="/schedule"
+                className="inline-flex items-center justify-center rounded-2xl border border-neutral-200 px-4 py-3 text-sm font-medium hover:bg-neutral-50"
+              >
+                View schedule
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-2xl border border-neutral-200 px-4 py-3 text-sm font-medium hover:bg-neutral-50"
+              >
+                Contact us
+              </Link>
+            </div>
           </div>
         </div>
       </Container>
     </section>
-  );
-}
-
-function InfoCard({ label, value, sub }: { label: string; value: string; sub: string }) {
-  return (
-    <div className="rounded-3xl bg-white/10 p-5">
-      <p className="text-xs font-semibold uppercase tracking-wide text-white/70">{label}</p>
-      <p className="mt-2 text-lg font-semibold text-white">{value}</p>
-      <p className="mt-1 text-sm text-white/80">{sub}</p>
-    </div>
   );
 }
