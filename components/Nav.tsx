@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container } from "./Container";
 
 const links = [
+  { href: "/or-bust", label: "...or Bust!" }, // NEW
   { href: "/about", label: "About" },
   { href: "/schedule", label: "Schedule" },
   { href: "/gallery", label: "Gallery" },
